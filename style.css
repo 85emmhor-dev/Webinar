@@ -1,0 +1,208 @@
+/* Färgvariabler och Font Import */
+:root {
+    --green-dark: #003300;
+    --green-medium: #006600;
+    --green-light: #66FF66; /* Neon-grönt */
+    --green-glow: #33FF33; /* Lite mörkare neon för skuggan */
+    --white: #FFFFFF;
+    --background-color: #001A00;
+    --error-color: #FF6666; /* Röd för felmeddelanden */
+}
+
+/* Global Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--green-light);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header & Typography */
+header {
+    padding: 40px 0;
+    background-color: var(--green-dark);
+    border-bottom: 2px solid var(--green-glow);
+    box-shadow: 0 0 15px var(--green-glow);
+}
+
+h1 {
+    font-size: 2.5em;
+    color: var(--green-light);
+    /* Neon effekt för rubriken */
+    text-shadow: 0 0 5px var(--green-glow), 0 0 10px var(--green-glow), 0 0 15px var(--green-glow);
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 2em;
+    color: var(--green-light);
+    text-shadow: 0 0 4px var(--green-glow);
+    border-bottom: 2px solid var(--green-medium);
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-top: 30px;
+}
+
+/* Sektioner */
+.info-section, .signup-section {
+    background-color: var(--green-dark);
+    padding: 30px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: left;
+}
+
+.divider {
+    border-color: var(--green-medium); 
+    margin: 40px 0;
+}
+
+/* Webinar Info Detaljer */
+.webinar-time-info {
+    text-align: center; 
+    font-size: 1.2em; 
+    font-weight: bold; 
+    margin-top: 20px;
+}
+
+.highlight {
+    color: var(--green-glow); 
+    text-shadow: 0 0 5px var(--green-glow);
+}
+
+.agenda-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.agenda-list li {
+    background: var(--green-medium);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-left: 5px solid var(--green-glow);
+    border-radius: 5px;
+    color: var(--white);
+}
+
+.speaker-list {
+    list-style: none;
+    padding: 0;
+}
+
+.speaker-list li {
+    margin-bottom: 20px;
+    border-bottom: 1px dashed var(--green-medium);
+    padding-bottom: 15px;
+}
+.speaker-list li:last-child {
+    border-bottom: none;
+}
+
+.speaker-name {
+    font-weight: bold;
+    color: var(--green-light);
+    text-shadow: 0 0 3px var(--green-glow);
+}
+
+/* Formulär Styling */
+.signup-section {
+    text-align: center;
+}
+
+.signup-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--green-light);
+    text-shadow: 0 0 1px var(--green-glow);
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--green-medium);
+    border-radius: 5px;
+    background-color: var(--green-dark);
+    color: var(--green-light);
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Neon effekt vid fokus */
+input[type="text"]:focus,
+input[type="email"]:focus {
+    border-color: var(--green-glow);
+    outline: none;
+    box-shadow: 0 0 8px var(--green-glow);
+}
+
+button {
+    background-color: var(--green-light);
+    color: var(--green-dark);
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: var(--green-glow);
+    box-shadow: 0 0 10px var(--green-glow), 0 0 20px var(--green-light);
+}
+
+/* Valideringsmeddelande stil */
+#validation-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    color: var(--error-color);
+    font-weight: bold;
+    background-color: #330000;
+    text-align: center;
+    border: 1px solid var(--error-color);
+    text-shadow: none;
+}
+.hidden {
+    display: none;
+}
+
+/* Footer */
+footer {
+    padding: 20px 0;
+    margin-top: 40px;
+    background-color: var(--green-dark);
+    border-top: 1px solid var(--green-medium);
+    font-size: 0.9em;
+    color: var(--green-medium);
+}
+.privacy-note {
+    font-size: 0.8em; 
+    margin-top: 20px; 
+    color: var(--green-medium);
+}
