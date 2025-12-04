@@ -1,132 +1,209 @@
-/* Färgvariabler och Font Import */
+/* --- FÄRGPALETT & FONTER --- */
 :root {
-    --green-dark: #003300;
-    --green-medium: #006600;
-    --green-light: #66FF66; /* Neon-grönt */
-    --green-glow: #33FF33; /* Lite mörkare neon för skuggan */
+    --brown-dark: #3E2723; /* Mörkaste Brun (Choklad) */
+    --brown-medium: #5D4037; /* Medium Brun (Kaffe) */
+    --beige-light: #F5F5DC; /* Ljus Beige (Bakgrund) */
     --white: #FFFFFF;
-    --background-color: #001A00;
-    --error-color: #FF6666; /* Röd för felmeddelanden */
+    --accent-gold: #B8860B; /* Mjuk Guld/Koppar accent */
+    --text-color-dark: var(--brown-dark);
+    --text-color-light: var(--beige-light);
+
+    /* Fonter */
+    --font-header: 'Playfair Display', serif;
+    --font-body: 'Roboto', sans-serif;
 }
 
-/* Global Styling */
+/* --- Global Styling och Bakgrund --- */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--background-color);
-    color: var(--green-light);
+    font-family: var(--font-body);
+    color: var(--text-color-dark);
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    background-color: var(--beige-light);
     text-align: center;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+.main-content {
+    /* Lägg till din bakgrundsbild här */
+    background: url('background-choklad.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    padding: 0;
+    position: relative;
 }
 
-/* Header & Typography */
+/* Överlagring för att göra text läsbar */
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(245, 245, 220, 0.7); /* Ljus overlay över bilden */
+    z-index: 1;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 2; /* Säkerställer att innehållet ligger ovanför overlayen */
+}
+
+/* --- Header & Typography --- */
 header {
-    padding: 40px 0;
-    background-color: var(--green-dark);
-    border-bottom: 2px solid var(--green-glow);
-    box-shadow: 0 0 15px var(--green-glow);
+    padding: 50px 0 20px 0;
+    background-color: transparent;
 }
 
 h1 {
-    font-size: 2.5em;
-    color: var(--green-light);
-    /* Neon effekt för rubriken */
-    text-shadow: 0 0 5px var(--green-glow), 0 0 10px var(--green-glow), 0 0 15px var(--green-glow);
-    margin-bottom: 10px;
+    font-family: var(--font-header);
+    font-size: 3em;
+    color: var(--brown-dark);
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    font-style: italic;
+    color: var(--brown-medium);
 }
 
 h2 {
-    font-size: 2em;
-    color: var(--green-light);
-    text-shadow: 0 0 4px var(--green-glow);
-    border-bottom: 2px solid var(--green-medium);
-    display: inline-block;
-    padding-bottom: 5px;
-    margin-top: 30px;
+    font-family: var(--font-header);
+    font-size: 2.2em;
+    color: var(--brown-dark);
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
 
-/* Sektioner */
+h4.agenda-title {
+    font-family: var(--font-header);
+    font-size: 1.1em;
+    color: var(--brown-dark);
+    margin-top: 5px;
+}
+
+/* --- Sektioner --- */
+
 .info-section, .signup-section {
-    background-color: var(--green-dark);
-    padding: 30px;
     margin: 20px 0;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: left;
 }
 
+.info-section {
+    background-color: var(--white);
+}
+
+.signup-section.dark-bg {
+    background-color: var(--brown-dark);
+    color: var(--text-color-light);
+    text-align: center;
+}
+
+.signup-section h2 {
+    color: var(--text-color-light);
+}
+.signup-section p {
+    color: var(--beige-light);
+}
+
+
 .divider {
-    border-color: var(--green-medium); 
-    margin: 40px 0;
+    border: 0;
+    height: 1px;
+    background-color: var(--brown-medium);
+    margin: 30px 0;
+    opacity: 0.3;
 }
 
-/* Webinar Info Detaljer */
-.webinar-time-info {
-    text-align: center; 
-    font-size: 1.2em; 
-    font-weight: bold; 
+/* Tidsinformation */
+.details-box {
+    text-align: center;
+}
+
+.webinar-datetime {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: var(--brown-medium);
+}
+.date {
+    color: var(--brown-dark);
+}
+.time {
+    color: var(--accent-gold);
+}
+
+/* --- Agenda Grid (Snyggare uppställning) --- */
+
+.agenda-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
     margin-top: 20px;
+    text-align: center;
 }
 
-.highlight {
-    color: var(--green-glow); 
-    text-shadow: 0 0 5px var(--green-glow);
+.agenda-item {
+    padding: 20px;
+    border: 1px solid var(--beige-light);
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.agenda-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
+.agenda-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.agenda-list li {
-    background: var(--green-medium);
-    margin-bottom: 10px;
-    padding: 10px;
-    border-left: 5px solid var(--green-glow);
-    border-radius: 5px;
-    color: var(--white);
+.step-number {
+    display: block;
+    font-family: var(--font-header);
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--accent-gold);
+    line-height: 1;
+    margin-bottom: 5px;
+}
+.agenda-item p {
+    font-size: 0.9em;
+    color: var(--brown-medium);
 }
 
+/* Talare */
 .speaker-list {
     list-style: none;
     padding: 0;
+    margin-top: 20px;
 }
 
 .speaker-list li {
-    margin-bottom: 20px;
-    border-bottom: 1px dashed var(--green-medium);
-    padding-bottom: 15px;
-}
-.speaker-list li:last-child {
-    border-bottom: none;
+    padding: 15px 0;
+    border-bottom: 1px dashed var(--beige-light);
 }
 
 .speaker-name {
     font-weight: bold;
-    color: var(--green-light);
-    text-shadow: 0 0 3px var(--green-glow);
+    font-size: 1.2em;
+    color: var(--brown-dark);
 }
 
-/* Formulär Styling */
-.signup-section {
-    text-align: center;
-}
+/* --- Formulär Styling --- */
 
 .signup-form {
-    max-width: 500px;
-    margin: 0 auto;
+    max-width: 400px;
+    margin: 25px auto 0 auto;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: left;
 }
 
@@ -134,46 +211,43 @@ label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: var(--green-light);
-    text-shadow: 0 0 1px var(--green-glow);
+    color: var(--text-color-light);
 }
 
 input[type="text"],
 input[type="email"] {
     width: 100%;
-    padding: 10px;
-    border: 1px solid var(--green-medium);
-    border-radius: 5px;
-    background-color: var(--green-dark);
-    color: var(--green-light);
+    padding: 12px;
+    border: 1px solid var(--brown-medium);
+    border-radius: 4px;
+    background-color: var(--beige-light);
+    color: var(--brown-dark);
     box-sizing: border-box;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: border-color 0.3s;
 }
 
-/* Neon effekt vid fokus */
 input[type="text"]:focus,
 input[type="email"]:focus {
-    border-color: var(--green-glow);
+    border-color: var(--accent-gold);
     outline: none;
-    box-shadow: 0 0 8px var(--green-glow);
+    box-shadow: 0 0 5px rgba(184, 134, 11, 0.5);
 }
 
 button {
-    background-color: var(--green-light);
-    color: var(--green-dark);
-    padding: 12px 25px;
+    background-color: var(--accent-gold);
+    color: var(--white);
+    padding: 12px 30px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: bold;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    text-transform: uppercase;
+    transition: background-color 0.3s, opacity 0.3s;
+    margin-top: 15px;
 }
 
 button:hover {
-    background-color: var(--green-glow);
-    box-shadow: 0 0 10px var(--green-glow), 0 0 20px var(--green-light);
+    background-color: #DAA520; /* Lite mörkare guld */
 }
 
 /* Valideringsmeddelande stil */
@@ -181,28 +255,33 @@ button:hover {
     margin-top: 15px;
     padding: 10px;
     border-radius: 5px;
-    color: var(--error-color);
+    color: var(--beige-light);
     font-weight: bold;
-    background-color: #330000;
+    background-color: #6d0f0f; 
     text-align: center;
-    border: 1px solid var(--error-color);
+    border: 1px solid #FF6666;
     text-shadow: none;
 }
 .hidden {
     display: none;
 }
 
-/* Footer */
+/* --- Footer --- */
 footer {
     padding: 20px 0;
-    margin-top: 40px;
-    background-color: var(--green-dark);
-    border-top: 1px solid var(--green-medium);
+    background-color: var(--brown-dark);
     font-size: 0.9em;
-    color: var(--green-medium);
+    color: var(--brown-medium);
+    position: relative;
+    z-index: 2;
 }
-.privacy-note {
-    font-size: 0.8em; 
-    margin-top: 20px; 
-    color: var(--green-medium);
+
+/* Media Query för responsivitet */
+@media (max-width: 768px) {
+    .agenda-grid {
+        grid-template-columns: 1fr;
+    }
+    h1 {
+        font-size: 2em;
+    }
 }

@@ -4,12 +4,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailInput = document.getElementById('email');
     const validationMessage = document.getElementById('validation-message');
 
+    // Hämta färger från CSS-variablerna (måste köras efter CSS laddats)
+    const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-gold').trim() || '#B8860B';
+    const errorColor = '#FF6666'; 
+
     // Funktion för att visa meddelanden
     function displayMessage(message, isError = true) {
         validationMessage.textContent = message;
-        validationMessage.style.color = isError ? 'var(--error-color)' : 'var(--green-glow)';
-        validationMessage.style.borderColor = isError ? 'var(--error-color)' : 'var(--green-glow)';
-        validationMessage.style.backgroundColor = isError ? '#330000' : 'var(--green-dark)';
+        
+        if (isError) {
+            validationMessage.style.color = 'white'; // För mörk bakgrund
+            validationMessage.style.borderColor = errorColor;
+            validationMessage.style.backgroundColor = '#6d0f0f';
+        } else {
+            validationMessage.style.color = accentColor;
+            validationMessage.style.borderColor = accentColor;
+            validationMessage.style.backgroundColor = 'rgba(184, 134, 11, 0.1)';
+        }
+
         validationMessage.classList.remove('hidden');
     }
 
@@ -38,25 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Om valideringen lyckas:
         
-        // 1. Visar ett framgångsmeddelande istället för att skicka till server
-        displayMessage("Tack för din registrering! Du kommer snart att få en bekräftelse.", false);
+        // 1. Visar ett framgångsmeddelande
+        displayMessage("Fantastiskt! Din plats är säkrad. Bekräftelse skickas till din e-post.", false);
 
-        // 2. För en riktig webbsida skulle du skicka data här:
-        /*
-        const formData = new FormData(form);
-        fetch('din_server_endpoint', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            // Hantera serversvar
-        });
-        */
-
-        // 3. Återställ formuläret efter en kort fördröjning
+        // 2. Återställ formuläret efter en kort fördröjning
         setTimeout(() => {
             form.reset();
             hideMessage();
-        }, 4000);
+        }, 5000);
     });
 });

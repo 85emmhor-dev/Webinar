@@ -3,7 +3,7 @@
 
   <head>
     <meta charset="UTF-8">
-    <title>Untitled</title>
+    <title>Chokladens hemlighet</title>
     <link rel="stylesheet" href="./style.css">
 
   </head>
@@ -14,95 +14,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webinar: Framtidens Gröna Teknik</title>
+    <title>Webinar: Chokladens Konst & Vetenskap</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
+    <div class="main-content">
+        <header>
+            <div class="container">
+                <h1>🍫 Chokladens Hemlighet: Från böna till perfektion</h1>
+                <p class="subtitle">Ett exklusivt webinar om hantverk, historia och hållbarhet i chokladvärlden.</p>
+            </div>
+        </header>
+
         <div class="container">
-            <h1>✨ Webinar: Framtidens Gröna Teknik i Praktiken ✨</h1>
-            <p>Utforska nästa generations hållbara lösningar och innovationer.</p>
+
+            <section class="info-section light-bg">
+                <div class="details-box">
+                    <h2>Datum & Tid</h2>
+                    <p class="webinar-datetime">
+                        <span class="date">Tisdag 15 Oktober 2026</span>
+                        <br>
+                        <span class="time">18:30 - 20:00 CET</span>
+                    </p>
+                </div>
+                
+                <hr class="divider">
+
+                <h2>Agenda: En smakresa i fyra steg</h2>
+                <div class="agenda-grid">
+                    <div class="agenda-item">
+                        <span class="step-number">I.</span>
+                        <h4 class="agenda-title">Råvarans Ursprung</h4>
+                        <p>Kakaobönans historia, odlingsmetoder och Fair Trade-certifieringar.</p>
+                    </div>
+                    <div class="agenda-item">
+                        <span class="step-number">II.</span>
+                        <h4 class="agenda-title">Konsten att Rosta</h4>
+                        <p>Processen från böna till massa: rostning, malning och conchningens magi.</p>
+                    </div>
+                    <div class="agenda-item">
+                        <span class="step-number">III.</span>
+                        <h4 class="agenda-title">Smakprofiler & Pairing</h4>
+                        <p>Lär dig känna igen nyanser och kombinera choklad med drycker.</p>
+                    </div>
+                    <div class="agenda-item">
+                        <span class="step-number">IV.</span>
+                        <h4 class="agenda-title">Q&A med Chocolatier</h4>
+                        <p>Din chans att ställa frågor till vår expert om hantverket.</p>
+                    </div>
+                </div>
+
+                <hr class="divider">
+
+                <h2>Vår Expert</h2>
+                <ul class="speaker-list">
+                    <li>
+                        <span class="speaker-name">Cecilia Lindgren</span>
+                        <br>
+                        *Master Chocolatier & Grundare, Cacao Excellence*
+                        <p>Cecilia har vunnit internationella priser för sitt Bean-to-Bar hantverk och delar passionerat med sig av sin kunskap.</p>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="signup-section dark-bg">
+                <h2>Bli en Chokladkännare – Anmäl dig idag</h2>
+                <p>Begränsat antal platser. Registrera dig för att få din unika länk.</p>
+
+                <form id="signup-form" class="signup-form" action="#" method="POST">
+                    
+                    <div class="form-group">
+                        <label for="name">Namn*</label>
+                        <input type="text" id="name" name="name" required placeholder="Förnamn Efternamn">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-postadress*</label>
+                        <input type="email" id="email" name="email" required placeholder="din.epost@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company">Företag (Valfritt)</label>
+                        <input type="text" id="company" name="company" placeholder="Ditt Företags Namn">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="title">Jobbtitel (Valfritt)</label>
+                        <input type="text" id="title" name="title" placeholder="Exempel: Inköpare, Kock">
+                    </div>
+                    
+                    <button type="submit">Säkra min plats</button>
+                    <div id="validation-message" class="hidden"></div>
+
+                </form>
+            </section>
+
         </div>
-    </header>
-
-    <div class="container">
-
-        <section class="info-section">
-            <h2>📆 Detaljer & Agenda</h2>
-
-            <p class="webinar-time-info">
-                <span class="highlight">DATUM:</span> Torsdag 21 Mars 2026
-                <br>
-                <span class="highlight">TID:</span> 14:00 - 15:30 CET
-            </p>
-
-            <h3>Agenda</h3>
-            <ul class="agenda-list">
-                <li>**14:00 - 14:15:** Öppning & Introduktion till Hållbarhet 4.0</li>
-                <li>**14:15 - 14:45:** Fallstudie: Implementering av AI-baserad energihantering</li>
-                <li>**14:45 - 15:15:** Paneldiskussion: Ekonomisk Vinning vs. Miljöpåverkan</li>
-                <li>**15:15 - 15:30:** Q&A - Frågestund med experterna</li>
-            </ul>
-
-            <h3>Talare</h3>
-            <ul class="speaker-list">
-                <li>
-                    <span class="speaker-name">Dr. Elvira Grönquist</span>
-                    <br>
-                    *Miljövetare & Chief Innovation Officer, EcoFuture AB*
-                    <p>Fokus: Cirkulär ekonomi och gröna investeringsstrategier.</p>
-                </li>
-                <li>
-                    <span class="speaker-name">Markus Stålberg</span>
-                    <br>
-                    *Senior Lösarkitekt, TechSynth Solutions*
-                    <p>Fokus: Praktiska tillämpningar av IoT och smarta system för energioptimering.</p>
-                </li>
-            </ul>
-        </section>
-
-        <hr class="divider">
-
-        <section class="signup-section">
-            <h2>📝 Registrera Dig Nu!</h2>
-            <p style="margin-bottom: 25px;">Säkra din plats till detta exklusiva webinaret. Alla fält markerade med * är obligatoriska.</p>
-
-            <form id="signup-form" class="signup-form" action="#" method="POST">
-                
-                <div class="form-group">
-                    <label for="name">Fullständigt Namn*</label>
-                    <input type="text" id="name" name="name" required placeholder="Förnamn Efternamn">
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">E-postadress*</label>
-                    <input type="email" id="email" name="email" required placeholder="din.epost@foretag.se">
-                </div>
-                
-                <div class="form-group">
-                    <label for="company">Företag</label>
-                    <input type="text" id="company" name="company" placeholder="Ditt Företags Namn">
-                </div>
-                
-                <div class="form-group">
-                    <label for="title">Jobbtitel</label>
-                    <input type="text" id="title" name="title" placeholder="Exempel: Projektledare">
-                </div>
-                
-                <button type="submit">Anmäl mig till Webinaret</button>
-                <div id="validation-message" class="hidden"></div>
-
-            </form>
-            <p class="privacy-note">Vi kommer inte att dela din information med tredje part.</p>
-        </section>
-
     </div>
 
     <footer>
         <div class="container">
-            &copy; 2025 Webinar Series. All Rights Reserved.
+            &copy; 2026 Cacao Excellence Webinars.
         </div>
     </footer>
 
