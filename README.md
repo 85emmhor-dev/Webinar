@@ -1,33 +1,92 @@
-# Project Report: Secure & Automated Flask Deployment on Azure
+# Secure Three-Tier Web Architecture on Azure ☁️
 
-## 1. Executive Summary
-Detta projekt demonstrerar en helautomatiserad driftsättning av en säker 3-tier webbapplikation. Genom att kombinera **Azure CLI** för infrastruktur och **Cloud-init/GitHub** för konfiguration, kan hela miljön återskapas från noll med ett enda kommando (`./deploy.sh`).
+Detta projekt är en helautomatiserad "Infrastructure as Code" (IaC) lösning för att driftsätta en säker, skalbar webbapplikation (Flask) med en hanterad PostgreSQL-databas på Microsoft Azure.
 
-## 2. Arkitektur
-* **Reverse Proxy (Nginx):** Hanterar inkommande trafik och skyddar webbservern.
-* **Web Server (Flask/Gunicorn):** Kör applikationslogiken i en isolerad miljö.
-* **Database (PostgreSQL Flexible Server):** Privat och säker datalagring.
+Lösningen använder en **GitOps-inspirerad deployment-strategi** där infrastrukturen provisioneras via Azure CLI, medan serverkonfigurationen hämtas dynamiskt från detta GitHub-repository vid uppstart.
 
-## 3. Deployment-strategi (The "GitOps" Approach)
-För att säkerställa stabilitet och undvika plattformsberoende fel (t.ex. Windows vs Linux radbrytningar), flyttades all konfigurationslogik från lokala script till GitHub-repositoryt.
+---
 
-1.  **Bootstrap:** Azure skapar VM:s och ger dem en minimal "Cloud-init"-instruktion.
-2.  **Pull:** Servrarna klonar automatiskt koden från GitHub vid uppstart.
-3.  **Execute:** Servrarna kör versionshanterade installationsscript (`setup.sh` och `setup_proxy.sh`) som ligger i repot.
+## 🏗 Arkitektur
 
-## 4. Lösta Hinder (Lessons Learned)
+Systemet är byggt enligt en klassisk **3-Tier Architecture** för maximal säkerhet och isolering:
 
-### A. "Silent Failures" i Cloud-init (CRLF vs LF)
-* **Problem:** Konfigurationsfiler skapade i Windows (Git Bash) fick fel radbrytningar (`\r\n`), vilket gjorde att Linux ignorerade dem tyst. Resultatet var att servrarna startade men förblev tomma.
-* **Lösning:** Använde `printf` i terminalen för att generera lokala YAML-filer med tvingande Linux-format (`\n`), samt flyttade komplex logik till `.sh`-filer på GitHub.
+1.  **Reverse Proxy (Nginx):**
+    * Agerar "portvakt" och tar emot all inkommande trafik.
+    * **HTTPS (Port 443):** Konfigurerad med ett självsignerat SSL-certifikat för krypterad trafik.
+    * Vidarebefordrar trafik till applikationsservern via ett internt nätverk.
+    * Publik IP: ✅
 
-### B. Mappstruktur & Sökvägar
-* **Problem:** Flask kräver specifika mappar (`templates`, `static`). Att skapa dessa dynamiskt via script visade sig vara felbenäget.
-* **Lösning:** Omstrukturerade GitHub-repot för att spegla produktionsmiljön. Detta förenklade installationsscriptet drastiskt.
+2.  **Application Server (Flask/Gunicorn):**
+    * Kör affärslogiken och Python-koden.
+    * Helt isolerad från internet (Ingen publik IP).
+    * Innehåller `postgresql-client` för databasadministration.
+    * Publik IP: ❌
 
-### C. Databaskoppling
-* **Problem:** Tjänstefilen (`systemd`) hittade inte den virtuella Python-miljön p.g.a. felaktiga sökvägar.
-* **Lösning:** Standardiserade installationsvägen i `setup.sh` till `/home/azureuser/Webinar/` och uppdaterade `flaskapp.service` att peka exakt dit.
+3.  **Database (Azure Database for PostgreSQL):**
+    * Hanterad PaaS-tjänst (Flexible Server).
+    * Endast tillgänglig för interna Azure-resurser.
+    * Publik IP: ❌
 
-## 5. Resultat
-En fullt fungerande, "Self-Healing" infrastruktur där deployment-tiden minimerats och den manuella handpåläggningen eliminerats helt.
+4.  **Bastion Host (Jumpbox):**
+    * Enda vägen in för SSH-administration (Port 22).
+    * Använder SSH Agent Forwarding för att nå de interna servrarna.
+
+---
+
+## 🚀 Deployment (Hur man kör det)
+
+Hela miljön kan återskapas från noll med ett enda kommando. Scriptet hanterar nätverk, brandväggar, VM-skapande och databaskopplingar.
+
+### Förutsättningar
+* Azure CLI installerat (`az login`).
+* Git Bash (om du kör Windows) eller Terminal (Mac/Linux).
+* SSH-nycklar genererade (`~/.ssh/id_rsa`).
+
+### Steg-för-steg
+1.  **Klona repot och gå till infra-mappen:**
+    ```bash
+    git clone [https://github.com/85emmhor-dev/Webinar.git](https://github.com/85emmhor-dev/Webinar.git)
+    cd Webinar/infra
+    ```
+
+2.  **Kör deployment-scriptet:**
+    ```bash
+    ./deploy.sh
+    ```
+
+3.  **Vänta ca 5 minuter.**
+    Scriptet kommer att ge dig IP-adressen till webbplatsen när det är klart ("DEPLOYMENT COMPLETE").
+
+---
+
+## ⚙️ Så fungerar Automationen (Under huven)
+
+För att undvika problem med operativsystemsskillnader (t.ex. Windows CRLF vs Linux LF radbrytningar) används en **Bootstrapping-metod**:
+
+1.  **Lokal Dator (`deploy.sh`):** Skapar Azure-resurserna och skickar en minimal `cloud-init`-fil till servrarna.
+2.  **Server Uppstart:** Servrarna vaknar och får instruktionen: *"Installera Git och hämta senaste koden från GitHub"*.
+3.  **GitHub Execution:** Servrarna laddar ner och kör installationsscripten som ligger versionshanterade i detta repo:
+    * `setup.sh`: Installerar Python, Flask, Gunicorn och `postgresql-client` på WebServern.
+    * `setup_proxy.sh`: Installerar Nginx och genererar SSL-certifikat på Proxyn.
+
+Detta garanterar att servrarna alltid installeras identiskt, oavsett vem som kör deploy-scriptet.
+
+---
+
+## 🔒 Säkerhet & Verifiering
+
+### HTTPS / SSL
+Reverse Proxy är konfigurerad att lyssna på **Port 443**. Eftersom ett självsignerat certifikat används kommer webbläsaren att visa en varning vid första besöket, men trafiken är krypterad.
+
+### Databasverifiering
+För att bevisa att data sparas korrekt kan man ansluta manuellt till databasen inifrån WebServern:
+
+```bash
+# 1. Logga in via Bastion (med agent forwarding)
+ssh -A azureuser@<BASTION_IP>
+
+# 2. Hoppa till WebServer (privat IP)
+ssh 10.0.0.4
+
+# 3. Anslut till DB
+psql "host=<DB_SERVER> user=flaskadmin password=<KEY> dbname=contactform sslmode=require"
