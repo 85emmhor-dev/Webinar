@@ -5,7 +5,7 @@ echo "--- Startar Pro Installation ---"
 
 # 1. Installera paket
 sudo apt-get update
-sudo apt-get install -y python3-pip python3-venv nginx git
+sudo apt-get install -y python3-pip python3-venv nginx git postgresql-client
 
 # 2. Gå till mappen (Där GitHub redan lagt koden)
 cd /home/azureuser/Webinar
